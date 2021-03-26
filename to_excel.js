@@ -18,11 +18,13 @@ let parseData = JSON.parse(result);
 let trueItem = [];
 
 for (let i = 0; i < parseData.length; i++) {
+  let currentItem = [];
   for (let k = 0; k < parseData[i].questionAnswers.length; k++) {
     if (parseData[i].questionAnswers[k].iscorrect === 1) {
-      trueItem.push(parseData[i].questionAnswers[k].answercontent);
+      currentItem.push(parseData[i].questionAnswers[k].answercontent);
     }
   }
+  trueItem.push(currentItem);
 }
 
 for (let i = 0; i < parseData.length; i++) {
@@ -40,12 +42,13 @@ for (let i = 0; i < parseData.length; i++) {
   ]);
 }
 
+console.log(trueItem);
 let buffer = xlsx.build(excelData);
 
 fs.writeFile("最终数据.xlsx", buffer, (err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log("完成");
+if (err) {
+console.log(err);
+return;
+}
+console.log("完成");
 });
